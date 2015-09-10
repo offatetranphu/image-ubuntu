@@ -3,11 +3,13 @@ NAME =			scw-distrib-ubuntu
 VERSION =		precise
 VERSION_ALIASES =	12.04.5 12.04
 TITLE =			Ubuntu Precise
-DESCRIPTION =		Ubuntu Precise (12.04 LTS)
+DESCRIPTION =		Ubuntu Precise (12.04)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
+VENDOR_URL =		http://www.ubuntu.com
 
-
-all: help
+IMAGE_NAME =		Ubuntu Trusty (12.04)
+IMAGE_BOOTSCRIPT =	stable
+IMAGE_VOLUME_SIZE =	50G
 
 
 ##

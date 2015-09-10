@@ -5,9 +5,11 @@ VERSION_ALIASES =	14.04.1 14.04 lts
 TITLE =			Ubuntu Trusty
 DESCRIPTION =		Ubuntu Trusty (14.04 LTS)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
+VENDOR_URL =		http://www.ubuntu.com
 
-
-all: help
+IMAGE_NAME =		Ubuntu Trusty (14.04 LTS)
+IMAGE_BOOTSCRIPT =	stable
+IMAGE_VOLUME_SIZE =	50G
 
 
 ##
