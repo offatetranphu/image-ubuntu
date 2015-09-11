@@ -1,5 +1,4 @@
-DOCKER_NAMESPACE =	armbuild/
-NAME =			scw-distrib-ubuntu
+NAME =			ubuntu
 VERSION =		vivid
 VERSION_ALIASES =	15.04 latest
 TITLE =			Ubuntu Vivid

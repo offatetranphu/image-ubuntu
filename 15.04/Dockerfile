@@ -1,4 +1,4 @@
-## -*- docker-image-name: "armbuild/scw-distrib-ubuntu:vivid" -*-
+## -*- docker-image-name: "scaleway/ubuntu:vivid" -*-
 FROM armbuild/ubuntu-debootstrap:vivid
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
@@ -6,7 +6,7 @@ MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
 # Useful for image inheritance
-ENV SCW_BASE_IMAGE armbuild/scw-ubuntu:vivid
+ENV SCW_BASE_IMAGE scaleway/ubuntu:vivid
 
 
 # ./patches/usr/local/bin/ is where the builder downloads qemu-*-static binaries

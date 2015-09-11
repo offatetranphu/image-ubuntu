@@ -1,5 +1,4 @@
-DOCKER_NAMESPACE =	armbuild/
-NAME =			scw-distrib-ubuntu
+NAME =			ubuntu
 VERSION =		trusty
 VERSION_ALIASES =	14.04.1 14.04 lts
 TITLE =			Ubuntu Trusty

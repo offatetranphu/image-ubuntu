@@ -1,4 +1,4 @@
-## -*- docker-image-name: "armbuild/scw-distrib-ubuntu:precise" -*-
+## -*- docker-image-name: "scaleway/distrib-ubuntu:precise" -*-
 FROM armbuild/ubuntu-debootstrap:precise
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
@@ -6,7 +6,7 @@ MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
 # Useful for image inheritance
-ENV SCW_BASE_IMAGE armbuild/scw-ubuntu:precise
+ENV SCW_BASE_IMAGE scaleway/ubuntu:precise
 
 
 # ./patches/usr/local/bin/ is where the builder downloads qemu-*-static binaries
