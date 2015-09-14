@@ -6,7 +6,7 @@ DESCRIPTION =		Ubuntu Precise (12.04)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
 
-IMAGE_NAME =		Ubuntu Trusty (12.04)
+IMAGE_NAME =		Ubuntu Precise (12.04)
 IMAGE_BOOTSCRIPT =	stable
 IMAGE_VOLUME_SIZE =	50G
 
