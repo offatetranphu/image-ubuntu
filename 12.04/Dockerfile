@@ -21,7 +21,7 @@ ADD ./patches/etc/apt/ /etc/apt/
 RUN apt-get -y -q update \
  && apt-get -y -qq install bash curl lsb-release tar \
  && apt-get -y clean \
- && curl -Lq http://j.mp/scw-skeleton | FLAVORS=common,docker-based bash -e \
+ && curl -Lq http://j.mp/scw-skeleton | FLAVORS=common,docker-based,upstart,feature-motd bash -e \
  && /usr/local/sbin/builder-enter
 
 
@@ -78,10 +78,11 @@ RUN apt-get -q update && \
     && apt-get clean
 
 
-# Patch rootfs
-# - Tweaks rootfs so it matches Scaleway infrastructure
+# update-motd.d
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
-RUN curl -Lq http://j.mp/scw-skeleton | FLAVORS=upstart bash -e
+
+
+# Patch rootfs
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
 
@@ -90,6 +91,10 @@ ADD ./patches/usr/ /usr/
 RUN locale-gen en_US.UTF-8 && \
     locale-gen fr_FR.UTF-8 && \
     dpkg-reconfigure locales
+
+
+# Fix permissions
+RUN chown root:syslog /var/log
 
 
 # Clean rootfs from image-builder
