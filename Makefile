@@ -4,6 +4,9 @@ PROXYFIED_COMMANDS ?=	\
 	build \
 	check_s3 \
 	clean \
+	image_on_store \
+	image_on_s3 \
+	image_on_local \
 	info \
 	install \
 	install_on_disk \
