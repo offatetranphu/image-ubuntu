@@ -1,0 +1,6 @@
+deb http://mirror.scaleway.com/ubuntu-ports vivid main universe
+deb http://ports.ubuntu.com/ubuntu-ports vivid main universe
+deb-src http://ports.ubuntu.com/ubuntu-ports vivid main universe
+
+deb http://ports.ubuntu.com vivid-security main
+deb http://ports.ubuntu.com vivid-security universe
