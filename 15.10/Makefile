@@ -1,12 +1,12 @@
 NAME =			ubuntu
-VERSION =		vivid
-VERSION_ALIASES =	15.04 latest
-TITLE =			Ubuntu Vivid
-DESCRIPTION =		Ubuntu Vivid (15.04)
+VERSION =		wily
+VERSION_ALIASES =	15.10
+TITLE =			Ubuntu Wily
+DESCRIPTION =		Ubuntu Wily (15.10)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
 
-IMAGE_NAME =		Ubuntu Vivid (15.04 latest)
+IMAGE_NAME =		Ubuntu Wily (15.10 latest)
 IMAGE_BOOTSCRIPT =	latest
 IMAGE_VOLUME_SIZE =	50G
 
