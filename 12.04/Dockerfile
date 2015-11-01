@@ -82,6 +82,9 @@ RUN apt-get -q update && \
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
 
 
+# remove root password, it will be created by the initrd
+RUN passwd -d root
+
 # Patch rootfs
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/

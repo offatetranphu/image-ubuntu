@@ -85,6 +85,8 @@ RUN apt-get -q update && \
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
 ADD ./patches/etc/ /etc/
 
+# remove root password, it will be created by the initrd
+RUN passwd -d root
 
 # Configure locales
 RUN locale-gen en_US.UTF-8 && \
