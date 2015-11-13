@@ -1,6 +1,6 @@
 NAME =			ubuntu
 VERSION =		vivid
-VERSION_ALIASES =	15.04 latest
+VERSION_ALIASES =	15.04
 TITLE =			Ubuntu Vivid
 DESCRIPTION =		Ubuntu Vivid (15.04)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
