@@ -1,6 +1,6 @@
 NAME =			ubuntu
 VERSION =		wily
-VERSION_ALIASES =	15.10
+VERSION_ALIASES =	15.10 latest
 TITLE =			Ubuntu Wily
 DESCRIPTION =		Ubuntu Wily (15.10)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
