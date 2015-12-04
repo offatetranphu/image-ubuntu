@@ -1,16 +1,11 @@
 ## -*- docker-image-name: "scaleway/ubuntu:wily" -*-
-FROM armbuild/ubuntu-debootstrap:wily
+FROM multiarch/ubuntu-debootstrap:armhf-wily
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV DEBIAN_FRONTEND noninteractive
-# Useful for image inheritance
-ENV SCW_BASE_IMAGE scaleway/ubuntu:wily
-
-
-# ./patches/usr/local/bin/ is where the builder downloads qemu-*-static binaries
-# ADD ./patches/usr/local/bin/ /usr/local/bin/
+ENV DEBIAN_FRONTEND=noninteractive \
+    SCW_BASE_IMAGE=scaleway/ubuntu:wily
 
 
 # ./patches/etc/apt/ contains source.list + apt.conf tuning
