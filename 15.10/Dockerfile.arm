@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 
 # ./patches/etc/apt/ contains source.list + apt.conf tuning
-ADD ./patches/etc/apt/ /etc/apt/
+# ADD ./patches/etc/apt/ /etc/apt/
 
 
 # Patch rootfs for docker-based builds
