@@ -5,6 +5,7 @@ TITLE =			Ubuntu Wily
 DESCRIPTION =		Ubuntu Wily (15.10)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
+DEFAULT_IMAGE_ARCH =	x86_64
 
 IMAGE_NAME =		Ubuntu Wily (15.10 latest)
 IMAGE_BOOTSCRIPT =	latest
