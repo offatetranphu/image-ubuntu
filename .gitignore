@@ -12,3 +12,4 @@ rootfs*
 .docker-container.built
 qemu-arm-static
 */tmp-*/
+*/.overlays
