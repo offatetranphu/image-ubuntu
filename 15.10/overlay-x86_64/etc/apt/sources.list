@@ -1,0 +1,3 @@
+deb http://archive.ubuntu.com/ubuntu wily main universe
+deb http://archive.ubuntu.com/ubuntu wily-updates main universe
+deb http://archive.ubuntu.com/ubuntu wily-security main universe

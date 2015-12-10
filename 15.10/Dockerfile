@@ -2,10 +2,10 @@
 FROM multiarch/ubuntu-debootstrap:amd64-wily
 # following 'FROM' lines are used dynamically thanks do the image-builder
 # which dynamically update the Dockerfile if needed.
-#FROM multiarch/ubuntu-debootstrap:armhf-wily  # arch=armv7l
-#FROM multiarch/ubuntu-debootstrap:i386-wily   # arch=i386
-#FROM multiarch/ubuntu-debootstrap:amd64-wily  # arch=x86_64
-#FROM multiarch/ubuntu-debootstrap:mips-wily   # arch=mips
+#FROM multiarch/ubuntu-debootstrap:armhf-wily	# arch=armv7l
+#FROM multiarch/ubuntu-debootstrap:i386-wily	# arch=i386
+#FROM multiarch/ubuntu-debootstrap:amd64-wily	# arch=x86_64
+#FROM multiarch/ubuntu-debootstrap:mips-wily	# arch=mips
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
@@ -14,6 +14,11 @@ MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 # Environment
 ENV DEBIAN_FRONTEND=noninteractive \
     SCW_BASE_IMAGE=scaleway/ubuntu:wily
+
+
+# Configure aptitude
+# Note that, `${ARCH}` is set in the multiarch/ubuntu-debootstrap image
+COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Patch rootfs for docker-based builds
