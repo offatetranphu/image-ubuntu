@@ -23,7 +23,7 @@ COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 # Patch rootfs for docker-based builds
 RUN apt-get -y -q update \
- && apt-get -y -qq install bash curl lsb-release tar \
+ && apt-get -y -q --no-install-recommends install bash curl lsb-release tar \
  && apt-get -y clean \
  && curl -Lq http://j.mp/scw-skeleton | FLAVORS=common,docker-based,systemd,feature-motd bash -e \
  && /usr/local/sbin/builder-enter
