@@ -5,6 +5,7 @@ TITLE =			Ubuntu Trusty
 DESCRIPTION =		Ubuntu Trusty (14.04 LTS)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
+DEFAULT_IMAGE_ARCH =	x86_64
 
 IMAGE_NAME =		Ubuntu Trusty (14.04 LTS)
 IMAGE_BOOTSCRIPT =	stable
