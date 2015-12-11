@@ -87,7 +87,7 @@ RUN apt-get -q update && \
 # Patch rootfs
 # - Tweaks rootfs so it matches Scaleway infrastructure
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
-ADD ./patches/etc/ /etc/
+ADD ./overlay/etc/ /etc/
 
 # remove root password, it will be created by the initrd
 RUN passwd -d root
