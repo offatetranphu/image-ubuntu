@@ -5,8 +5,9 @@ TITLE =			Ubuntu Vivid
 DESCRIPTION =		Ubuntu Vivid (15.04)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
+DEFAULT_IMAGE_ARCH =	x86_64
 
-IMAGE_NAME =		Ubuntu Vivid (15.04 latest)
+IMAGE_NAME =		Ubuntu Vivid (15.04)
 IMAGE_BOOTSCRIPT =	latest
 IMAGE_VOLUME_SIZE =	50G
 
