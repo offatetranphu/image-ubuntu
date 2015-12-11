@@ -11,6 +11,7 @@ PROXYFIED_COMMANDS ?=	\
 	install \
 	install_on_disk \
 	publish_on_s3 \
+	publish_on_store \
 	publish_on_s3.sqsh \
 	publish_on_s3.tar \
 	publish_on_s3.tar.gz \
