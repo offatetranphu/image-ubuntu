@@ -1,4 +1,4 @@
-VERSIONS ?=	12.04 14.04 14.10 15.04
+VERSIONS ?=	$(wildcard 1*.*)
 PROXYFIED_COMMANDS ?=	\
 	all \
 	build \
