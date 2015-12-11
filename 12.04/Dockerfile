@@ -1,20 +1,24 @@
-## -*- docker-image-name: "scaleway/distrib-ubuntu:precise" -*-
-FROM armbuild/ubuntu-debootstrap:precise
+## -*- docker-image-name: "scaleway/ubuntu:precise" -*-
+FROM multiarch/ubuntu-debootstrap:amd64-precise
+# following 'FROM' lines are used dynamically thanks do the image-builder
+# which dynamically update the Dockerfile if needed.
+#FROM multiarch/ubuntu-debootstrap:armhf-precise	# arch=armv7l
+#FROM multiarch/ubuntu-debootstrap:i386-precise		# arch=i386
+#FROM multiarch/ubuntu-debootstrap:amd64-precise	# arch=x86_64
+#FROM multiarch/ubuntu-debootstrap:mips-precise		# arch=mips
+
+
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV DEBIAN_FRONTEND noninteractive
-# Useful for image inheritance
-ENV SCW_BASE_IMAGE scaleway/ubuntu:precise
+ENV DEBIAN_FRONTEND=noninteractive \
+    SCW_BASE_IMAGE=scaleway/ubuntu:precise
 
 
-# ./patches/usr/local/bin/ is where the builder downloads qemu-*-static binaries
-ADD ./patches/usr/local/bin/ /usr/local/bin/
-
-
-# ./patches/etc/apt/ contains source.list + apt.conf tuning
-ADD ./patches/etc/apt/ /etc/apt/
+# Configure aptitude
+# Note that, `${ARCH}` is set in the multiarch/ubuntu-debootstrap image
+COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Patch rootfs for docker-based builds
@@ -86,8 +90,7 @@ RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
 RUN passwd -d root
 
 # Patch rootfs
-ADD ./patches/etc/ /etc/
-ADD ./patches/usr/ /usr/
+ADD ./overlay/etc/ /etc/
 
 
 # Configure locales
