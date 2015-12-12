@@ -1,20 +1,24 @@
 ## -*- docker-image-name: "scaleway/ubuntu:wily" -*-
-FROM armbuild/ubuntu-debootstrap:wily
+FROM multiarch/ubuntu-debootstrap:amd64-wily
+# following 'FROM' lines are used dynamically thanks do the image-builder
+# which dynamically update the Dockerfile if needed.
+#FROM multiarch/ubuntu-debootstrap:armhf-wily	# arch=armv7l
+#FROM multiarch/ubuntu-debootstrap:i386-wily	# arch=i386
+#FROM multiarch/ubuntu-debootstrap:amd64-wily	# arch=x86_64
+#FROM multiarch/ubuntu-debootstrap:mips-wily	# arch=mips
+
+
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV DEBIAN_FRONTEND noninteractive
-# Useful for image inheritance
-ENV SCW_BASE_IMAGE scaleway/ubuntu:wily
+ENV DEBIAN_FRONTEND=noninteractive \
+    SCW_BASE_IMAGE=scaleway/ubuntu:wily
 
 
-# ./patches/usr/local/bin/ is where the builder downloads qemu-*-static binaries
-# ADD ./patches/usr/local/bin/ /usr/local/bin/
-
-
-# ./patches/etc/apt/ contains source.list + apt.conf tuning
-ADD ./patches/etc/apt/ /etc/apt/
+# Configure aptitude
+# Note that, `${ARCH}` is set in the multiarch/ubuntu-debootstrap image
+COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Patch rootfs for docker-based builds
@@ -83,7 +87,7 @@ RUN apt-get -q update && \
 # Patch rootfs
 # - Tweaks rootfs so it matches Scaleway infrastructure
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
-ADD ./patches/etc/ /etc/
+ADD ./overlay/etc/ /etc/
 
 # remove root password, it will be created by the initrd
 RUN passwd -d root

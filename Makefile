@@ -1,4 +1,4 @@
-VERSIONS ?=	12.04 14.04 14.10 15.04
+VERSIONS ?=	$(wildcard 1*.*)
 PROXYFIED_COMMANDS ?=	\
 	all \
 	build \
@@ -11,6 +11,7 @@ PROXYFIED_COMMANDS ?=	\
 	install \
 	install_on_disk \
 	publish_on_s3 \
+	publish_on_store \
 	publish_on_s3.sqsh \
 	publish_on_s3.tar \
 	publish_on_s3.tar.gz \
