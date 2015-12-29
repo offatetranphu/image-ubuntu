@@ -110,7 +110,6 @@ RUN systemctl enable \
 	oc-gen-machine-id \
 	oc-kernel-check \
  && systemctl disable \
-	getty@tty1 \
 	kmod-static-nodes.service \
 	proc-sys-fs-binfmt_misc.automount \
 	systemd-modules-load.service \
