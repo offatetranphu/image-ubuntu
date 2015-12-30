@@ -11,6 +11,10 @@ IMAGE_NAME =		Ubuntu Wily (15.10 latest)
 IMAGE_BOOTSCRIPT =	latest
 IMAGE_VOLUME_SIZE =	50G
 
+# This is specific to distribution images
+IMAGE_TOOLS_FLAVORS =	common,docker-based,systemd,feature-motd
+IMAGE_TOOLS_CHECKOUT =	7cab19ff57c95dd305c39e885c0d6463ecf976e5
+
 
 ##
 ## Image tools  (https://github.com/scaleway/image-tools)
