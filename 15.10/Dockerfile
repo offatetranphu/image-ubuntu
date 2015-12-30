@@ -5,7 +5,6 @@ FROM multiarch/ubuntu-debootstrap:amd64-wily
 #FROM multiarch/ubuntu-debootstrap:armhf-wily	# arch=armv7l
 #FROM multiarch/ubuntu-debootstrap:arm64-wily	# arch=arm64
 #FROM multiarch/ubuntu-debootstrap:i386-wily	# arch=i386
-#FROM multiarch/ubuntu-debootstrap:amd64-wily	# arch=x86_64
 #FROM multiarch/ubuntu-debootstrap:mips-wily	# arch=mips
 
 
