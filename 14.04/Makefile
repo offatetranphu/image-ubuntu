@@ -11,6 +11,10 @@ IMAGE_NAME =		Ubuntu Trusty (14.04 LTS)
 IMAGE_BOOTSCRIPT =	stable
 IMAGE_VOLUME_SIZE =	50G
 
+# This is specific to distribution images
+IMAGE_TOOLS_FLAVORS =	common,docker-based,upstart,feature-motd
+IMAGE_TOOLS_CHECKOUT =	7cab19ff57c95dd305c39e885c0d6463ecf976e5
+
 
 ##
 ## Image tools  (https://github.com/scaleway/image-tools)
