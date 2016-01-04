@@ -21,18 +21,16 @@ ENV DEBIAN_FRONTEND=noninteractive \
 COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
-# Patch rootfs for docker-based builds
-RUN apt-get -y -q update \
- && apt-get -y -qq install bash curl lsb-release tar \
- && apt-get -y clean \
- && curl -Lq http://j.mp/scw-skeleton | FLAVORS=common,docker-based,upstart,feature-motd bash -e \
- && /usr/local/sbin/builder-enter
+# Adding and calling builder-enter
+COPY ./overlay-image-tools/usr/local/sbin/builder-enter /usr/local/sbin/
+RUN /usr/local/sbin/builder-enter
 
 
 # Install packages
 RUN apt-get -q update && \
     apt-get -y -qq upgrade && \
     apt-get install -y -qq \
+	bash \
 	bash-completion \
 	bc \
 	ca-certificates \
@@ -74,6 +72,7 @@ RUN apt-get -q update && \
 	ssh \
 	sudo \
 	sysstat \
+	tar \
 	tcpdump \
 	tmux \
 	vim \
@@ -83,14 +82,14 @@ RUN apt-get -q update && \
     && apt-get clean
 
 
-# update-motd.d
+# Patch rootfs
+# - Tweaks rootfs so it matches Scaleway infrastructure
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
+COPY ./overlay/ ./overlay-image-tools/ ./overlay-${ARCH}/ /
+
 
 # remove root password, it will be created by the initrd
 RUN passwd -d root
-
-# Patch rootfs
-ADD ./overlay/etc/ /etc/
 
 
 # Configure locales
