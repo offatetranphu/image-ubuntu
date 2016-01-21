@@ -1,2 +1,2 @@
 IMAGE_FLAVORS="common docker-based feature-motd upstart"
-IMAGE_TOOLS_CHECKOUT="23f3212bd114db1a3ad60c57c42388fb0c23392c"
+IMAGE_TOOLS_CHECKOUT="2086abd6fcd71fa215ce76cc244af90651c3c6ae"
