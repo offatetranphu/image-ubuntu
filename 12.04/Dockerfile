@@ -21,8 +21,8 @@ COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
-COPY ./overlay-image-tools/usr/local/sbin/builder-enter /usr/local/sbin/
-RUN /usr/local/sbin/builder-enter
+COPY ./overlay-image-tools/usr/local/sbin/scw-builder-enter /usr/local/sbin/
+RUN /usr/local/sbin/scw-builder-enter
 
 
 # Install packages
@@ -99,4 +99,4 @@ RUN chown root:syslog /var/log
 
 
 # Clean rootfs from image-builder
-RUN /usr/local/sbin/builder-leave
+RUN /usr/local/sbin/scw-builder-leave
