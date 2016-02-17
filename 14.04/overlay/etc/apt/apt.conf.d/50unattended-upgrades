@@ -1,0 +1,7 @@
+Unattended-Upgrade::Allowed-Origins {
+    "Ubuntu trusty-security";
+};
+Unattended-Upgrade::Package-Blacklist {
+    "xnbd-client";
+    "nbd-client";
+};
