@@ -14,7 +14,7 @@ IMAGE_VOLUME_SIZE =	50G
 # This is specific to distribution images
 # -- to fetch latest code, run 'make sync-image-tools'
 IMAGE_TOOLS_FLAVORS =	common,docker-based,upstart,feature-motd
-IMAGE_TOOLS_CHECKOUT =	2086abd6fcd71fa215ce76cc244af90651c3c6ae
+IMAGE_TOOLS_CHECKOUT =	e62f185d21b86a8c09a9aef717c589d43a317da4
 
 
 ##
