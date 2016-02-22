@@ -5,3 +5,4 @@ Unattended-Upgrade::Package-Blacklist {
     "xnbd-client";
     "nbd-client";
 };
+Unattended-Upgrade::Automatic-Reboot "false";
