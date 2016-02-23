@@ -79,6 +79,7 @@ RUN apt-get -q update && \
 	wget \
 	whiptail \
 	software-properties-common \
+    unattended-upgrades \
     && apt-get clean
 
 
