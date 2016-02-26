@@ -20,6 +20,7 @@ PROXYFIED_COMMANDS ?=	\
 	release \
 	run \
 	shell \
+	bump-image-tools \
 	sync-image-tools \
 	travis
 
