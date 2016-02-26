@@ -1,2 +1,2 @@
 IMAGE_FLAVORS="common docker-based feature-motd systemd"
-IMAGE_TOOLS_CHECKOUT="e62f185d21b86a8c09a9aef717c589d43a317da4"
+IMAGE_TOOLS_CHECKOUT="6025f3b37ce972a4c3b273ece9decd0a0b6fb590"
