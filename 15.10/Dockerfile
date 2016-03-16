@@ -123,7 +123,8 @@ RUN rm -f /sbin/init /bin/init \
 
 
 # Fix permissions
-RUN chown root:syslog /var/log
+RUN chown root:syslog /var/log \
+ && chmod 755 /etc/default
 
 
 # Clean rootfs from image-builder

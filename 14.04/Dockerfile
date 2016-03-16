@@ -100,7 +100,8 @@ RUN locale-gen en_US.UTF-8 && \
 
 
 # Fix permissions
-RUN chown root:syslog /var/log
+RUN chown root:syslog /var/log \
+ && chmod 755 /etc/default
 
 
 # Clean rootfs from image-builder
