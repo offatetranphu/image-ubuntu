@@ -23,7 +23,7 @@ Available tags
 
 - precise (12.04)
 - trusty (14.04, lts)
-- vivid (15.04, latest)
+- wily (15.10, latest)
 
 ---
 
