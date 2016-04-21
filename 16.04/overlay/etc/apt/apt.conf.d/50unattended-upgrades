@@ -1,5 +1,5 @@
 Unattended-Upgrade::Allowed-Origins {
-    "Ubuntu wily-security";
+    "Ubuntu xenial-security";
 };
 Unattended-Upgrade::Package-Blacklist {
     "xnbd-client";
