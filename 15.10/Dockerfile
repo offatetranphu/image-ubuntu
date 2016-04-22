@@ -77,11 +77,12 @@ RUN apt-get -q update && \
 	tar \
 	tcpdump \
 	tmux \
+	uuid-runtime \
 	vim \
 	wget \
 	whiptail \
-    unattended-upgrades \
-    && apt-get clean
+	unattended-upgrades \
+	&& apt-get clean
 
 
 # Patch rootfs
