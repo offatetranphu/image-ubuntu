@@ -72,6 +72,7 @@ RUN apt-get -q update && \
       sysstat \
       tcpdump \
       tmux \
+      uuid-runtime \
       vim \
       wget \
       whiptail \
