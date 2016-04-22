@@ -77,6 +77,7 @@ RUN apt-get -q update && \
 	tar \
 	tcpdump \
 	tmux \
+	udev \
 	uuid-runtime \
 	vim \
 	wget \
