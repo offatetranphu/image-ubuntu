@@ -129,5 +129,8 @@ RUN chown root:syslog /var/log \
  && chmod 755 /etc/default
 
 
+# HotFix Reboot
+RUN systemctl mask networking
+
 # Clean rootfs from image-builder
 RUN /usr/local/sbin/scw-builder-leave
