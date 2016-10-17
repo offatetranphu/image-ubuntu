@@ -1,13 +1,13 @@
 NAME =			ubuntu
 VERSION =		yakkety
-VERSION_ALIASES =	16.04 latest
-TITLE =			Ubuntu Xenial
-DESCRIPTION =		Ubuntu Xenial (16.04 LTS)
+VERSION_ALIASES =	16.10 latest
+TITLE =			Ubuntu Yakkety
+DESCRIPTION =		Ubuntu Yakkety (16.10)
 SOURCE_URL =		https://github.com/scaleway/image-ubuntu
 VENDOR_URL =		http://www.ubuntu.com
 DEFAULT_IMAGE_ARCH =	x86_64
 
-IMAGE_NAME =		Ubuntu Xenial (16.04 latest)
+IMAGE_NAME =		Ubuntu Yakkety (16.10 latest)
 IMAGE_BOOTSCRIPT =	latest
 IMAGE_VOLUME_SIZE =	50G
 
