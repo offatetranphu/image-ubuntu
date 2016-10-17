@@ -106,10 +106,9 @@ RUN systemctl set-default multi-user
 
 # Configure Systemd
 RUN systemctl enable \
-        scw-fetch-ssh-keys \
+	scw-fetch-ssh-keys \
 	scw-sync-kernel-modules \
 	scw-generate-ssh-keys \
-	scw-gen-machine-id \
 	scw-kernel-check \
  && systemctl disable \
 	kmod-static-nodes.service \
@@ -131,6 +130,8 @@ RUN chown root:syslog /var/log \
 
 # HotFix Reboot
 RUN systemctl mask networking
+
+RUN rm -fr /etc/machine-id
 
 # Clean rootfs from image-builder
 RUN /usr/local/sbin/scw-builder-leave
