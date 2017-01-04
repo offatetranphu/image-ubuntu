@@ -28,6 +28,11 @@ RUN /usr/local/sbin/scw-builder-enter
 
 # Install packages
 RUN apt-get -q update && \
+    apt-get                                \
+      -o Dpkg::Options::='--force-confold' \
+      -o Dpkg::Options::='--force-confdef' \
+      install --only-upgrade base-files   && \
+    rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y --force-yes -qq upgrade && \
     apt-get -y --force-yes -qq install \
 	bash \
@@ -122,6 +127,7 @@ RUN rm -f /sbin/init /bin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init \
  && ln -sf ../lib/systemd/systemd /bin/init
 
+RUN rm -f /etc/machine-id /var/lib/dbus/machine-id
 
 # Fix permissions
 RUN chown root:syslog /var/log \
@@ -130,8 +136,6 @@ RUN chown root:syslog /var/log \
 
 # HotFix Reboot
 RUN systemctl mask networking
-
-RUN rm -fr /etc/machine-id
 
 # Clean rootfs from image-builder
 RUN /usr/local/sbin/scw-builder-leave

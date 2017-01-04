@@ -28,6 +28,11 @@ RUN /usr/local/sbin/scw-builder-enter
 
 # Install packages
 RUN apt-get -q update && \
+    apt-get                                \
+      -o Dpkg::Options::='--force-confold' \
+      -o Dpkg::Options::='--force-confdef' \
+      install --only-upgrade base-files   && \
+    rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y -qq upgrade && \
     apt-get install -y -qq \
 	bash \
@@ -98,6 +103,8 @@ RUN passwd -d root
 RUN locale-gen en_US.UTF-8 && \
     locale-gen fr_FR.UTF-8 && \
     dpkg-reconfigure locales
+
+RUN rm -f /etc/machine-id /var/lib/dbus/machine-id
 
 
 # Fix permissions
