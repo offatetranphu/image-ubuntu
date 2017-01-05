@@ -34,7 +34,7 @@ RUN apt-get -q update && \
       install --only-upgrade base-files   && \
     rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y -qq upgrade && \
-    apt-get -y -qq install \
+    apt-get -y -qq --allow-downgrades install \
 	bash \
 	bash-completion \
 	bc \
@@ -56,6 +56,7 @@ RUN apt-get -q update && \
 	isc-dhcp-client \
 	less \
 	locate \
+	libudev1=229-4ubuntu10 \
 	lsb-release \
 	lsof \
 	make \
