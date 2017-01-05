@@ -28,6 +28,11 @@ RUN /usr/local/sbin/scw-builder-enter
 
 # Install packages
 RUN apt-get -q update && \
+    apt-get                                \
+      -o Dpkg::Options::='--force-confold' \
+      -o Dpkg::Options::='--force-confdef' \
+      install --only-upgrade base-files   && \
+    rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y --force-yes -qq upgrade && \
     apt-get -y --force-yes -qq install \
 	bash \
@@ -106,10 +111,9 @@ RUN systemctl set-default multi-user
 
 # Configure Systemd
 RUN systemctl enable \
-        scw-fetch-ssh-keys \
+    scw-fetch-ssh-keys \
 	scw-sync-kernel-modules \
 	scw-generate-ssh-keys \
-	scw-gen-machine-id \
 	scw-kernel-check \
  && systemctl disable \
 	kmod-static-nodes.service \
@@ -124,10 +128,11 @@ RUN rm -f /sbin/init /bin/init \
  && ln -sf ../lib/systemd/systemd /bin/init
 
 
+RUN rm -f /etc/machine-id /var/lib/dbus/machine-id
+
 # Fix permissions
 RUN chown root:syslog /var/log \
  && chmod 755 /etc/default
-
 
 # HotFix Reboot
 RUN systemctl mask networking
