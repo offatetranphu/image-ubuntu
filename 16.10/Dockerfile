@@ -33,8 +33,8 @@ RUN apt-get -q update && \
       -o Dpkg::Options::='--force-confdef' \
       install --only-upgrade base-files   && \
     rm -rf /etc/update-motd.d/*.dpkg-dist && \
-    apt-get -y --force-yes -qq upgrade && \
-    apt-get -y --force-yes -qq install \
+    apt-get -y -qq upgrade && \
+    apt-get -y -qq install \
 	bash \
 	bash-completion \
 	bc \
