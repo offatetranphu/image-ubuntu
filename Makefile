@@ -18,6 +18,7 @@ PROXYFIED_COMMANDS ?=	\
 	re \
 	rebuild \
 	release \
+	rootfs.tar \
 	run \
 	shell \
 	bump-image-tools \
