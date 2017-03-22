@@ -33,6 +33,7 @@ RUN apt-get -q update && \
       install --only-upgrade base-files   && \
     rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y -qq upgrade && \
+    $(test ${ARCH} = "armv7l" && echo apt-get -y --force-yes install python-minimal=2.7.3-0ubuntu2 || echo -n) && \
     apt-get -y -qq install \
       bash-completion \
       bc \
@@ -65,6 +66,7 @@ RUN apt-get -q update && \
       netcat \
       ntp \
       ntpdate \
+      python \
       python-apt \
       python-yaml \
       rsync \
