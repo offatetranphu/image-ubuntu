@@ -27,6 +27,11 @@ RUN /usr/local/sbin/scw-builder-enter
 
 
 # Install packages
+
+# XXX: On armv7l, the base image installs a version of libudev1 which is
+# incompatible with the udev package. For this architecture and this
+# architecture only, allow downgrading (with --allow-downgrades) libudev1
+# otherwise apt-get install fails.
 RUN apt-get -q update && \
     apt-get                                \
       -o Dpkg::Options::='--force-confold' \
@@ -34,7 +39,7 @@ RUN apt-get -q update && \
       install --only-upgrade base-files   && \
     rm -rf /etc/update-motd.d/*.dpkg-dist && \
     apt-get -y -qq upgrade && \
-    apt-get -y -qq --allow-downgrades install \
+    apt-get -y -qq $(test ${ARCH} = "armv7l" && echo "--allow-downgrades") install \
 	bash \
 	bash-completion \
 	bc \
@@ -56,7 +61,6 @@ RUN apt-get -q update && \
 	isc-dhcp-client \
 	less \
 	locate \
-	libudev1=229-4ubuntu10 \
 	lsb-release \
 	lsof \
 	make \
