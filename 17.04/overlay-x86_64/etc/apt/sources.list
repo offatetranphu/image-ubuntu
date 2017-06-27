@@ -1,0 +1,7 @@
+deb http://mirror.scaleway.com/ubuntu zesty main universe
+deb http://mirror.scaleway.com/ubuntu zesty-updates main universe
+deb http://mirror.scaleway.com/ubuntu zesty-security main universe
+
+deb http://archive.ubuntu.com/ubuntu zesty main universe
+deb http://archive.ubuntu.com/ubuntu zesty-updates main universe
+deb http://archive.ubuntu.com/ubuntu zesty-security main universe

@@ -1,0 +1,7 @@
+deb http://mirror.scaleway.com/ubuntu-ports zesty main universe
+deb http://mirror.scaleway.com/ubuntu-ports zesty-updates main universe
+deb http://mirror.scaleway.com/ubuntu-ports zesty-security main universe
+
+deb http://ports.ubuntu.com/ubuntu-ports zesty main universe
+deb http://ports.ubuntu.com/ubuntu-ports zesty-updates main universe
+deb http://ports.ubuntu.com/ubuntu-ports zesty-security main universe
