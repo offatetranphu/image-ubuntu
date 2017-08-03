@@ -1,12 +1,6 @@
 ## -*- docker-image-name: "scaleway/ubuntu:xenial" -*-
-FROM multiarch/ubuntu-debootstrap:amd64-xenial
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/ubuntu-debootstrap:armhf-xenial	# arch=armv7l
-#FROM multiarch/ubuntu-debootstrap:arm64-xenial	# arch=arm64
-#FROM multiarch/ubuntu-debootstrap:i386-xenial	# arch=i386
-#FROM multiarch/ubuntu-debootstrap:mips-xenial	# arch=mips
-
+ARG ARCH
+FROM multiarch/ubuntu-debootstrap:${ARCH}-xenial
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
