@@ -52,7 +52,7 @@ pipeline {
     stage('Create image on Scaleway: x86_64') {
       steps {
         dir('tools') {
-          sh "make ARCH=x86_64 IMAGE_DIR=${IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/x86_64 BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=x86_64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/x86_64 BUILD_OPTS='--no-cache' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/x86_64/image.id").trim()
             images.add([arch: "x86_64", id: imageId])
@@ -63,7 +63,7 @@ pipeline {
     stage('Create image on Scaleway: arm64') {
       steps {
         dir('tools') {
-          sh "make ARCH=arm64 IMAGE_DIR=${IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm64 BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=arm64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm64 BUILD_OPTS='--no-cache' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/arm64/image.id").trim()
             images.add([arch: "arm64", id: imageId])
@@ -74,7 +74,7 @@ pipeline {
     stage('Create image on Scaleway: arm') {
       steps {
         dir('tools') {
-          sh "make ARCH=arm IMAGE_DIR=${IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=arm IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm BUILD_OPTS='--no-cache' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/arm/image.id").trim()
             images.add([arch: "arm", id: imageId])
@@ -89,36 +89,24 @@ pipeline {
       steps {
         dir('tools') {
           script {
-            if (params.createImage == false) {
-              env.imageId = params.imageId
+            for (Map image : images) {
+              sh "make tests IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/${image['arch']} ARCH=${image['arch']} IMAGE_ID=${image['id']} NO_CLEANUP=${params.needAdminApproval}"
             }
-          }
-          withCredentials([usernamePassword(credentialsId: 'scw-test-orga-token', usernameVariable: 'SCW_ORGANIZATION', passwordVariable: 'SCW_TOKEN')]) {
-            sh "./test_image.sh start ${params.arch} ${env.imageId} servers_list"
-          }
-          script {
-            serverIds = readFile('servers_list').trim()
-          }
-          echo "The following servers have been booted and passed basic checks:\nTYPE NAME ID\n${serverIds}"
-          script {
-            if (params.needAdminApproval) {
-              emailext(
-                to: "jtamba@online.net",
-                subject: "Image test from image-release #${env.BUILD_NUMBER} needs admin approval",
-                body: """<p>A new version of an image is being tested. The following servers have been booted and passed basic checks:\nTYPE NAME ID\n${serverIds}. You can ssh to it and do some manual checks.</p>
-                <p>If the image is fit for release, you can <a href="${env.JENKINS_URL}/blue/organizations/jenkins/image-release/detail/image-release/${env.BUILD_NUMBER}">go to the pipeline</a> to confirm the build or otherwise abort it.</p>
-                """
-              )
-              input message: "You can run some manual checks on the booted server(s). Confirm that the image is stable ?", ok: 'Confirm'
+            if (env.needsAdminApproval) {
+              input "Confirm that the images are stable ?"
             }
           }
         }
       }
       post {
         always {
-          dir('test-and-release') {
-            withCredentials([usernamePassword(credentialsId: 'scw-test-orga-token', usernameVariable: 'SCW_ORGANIZATION', passwordVariable: 'SCW_TOKEN')]) {
-              sh "./test_image.sh stop servers_list"
+          script {
+            if (env.needsAdminApproval) {
+              dir('tools') {
+                for (Map image : images) {
+                  sh "scripts/test_images.sh stop ${env.EXPORT_DIR_BASE}/${image['arch']}/${image['id']}.servers"
+                }
+              }
             }
           }
         }
