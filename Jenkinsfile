@@ -16,7 +16,7 @@ pipeline {
 
   environment {
     SSH_KEY_FILE = "${env.HOME}/.ssh/id_worker.pub"
-    IMAGE_DIR = "${env.WORKSPACE}/image/16.04"
+    IMAGE_DIR_BASE = "${env.WORKSPACE}/image"
     EXPORT_DIR_BASE = "${env.WORKSPACE}/export"
   }
 
@@ -39,6 +39,17 @@ pipeline {
         }
         dir('image') {
           checkout scm
+        }
+      }
+    }
+    stage('Set environment') {
+      steps {
+        script {
+          subdir = sh(
+            script: "grep '${env.JOB_NAME}' ${env.IMAGE_DIR_BASE}/images.list | cut -d'|' -f2",
+            returnStdout: true
+          ).trim()
+          env.IMAGE_DIR = "${env.IMAGE_DIR_BASE}/${subdir}"
         }
       }
     }
