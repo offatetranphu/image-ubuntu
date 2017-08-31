@@ -29,6 +29,10 @@ pipeline {
   stages {
     stage('Pull image tools and image source') {
       steps {
+        sh "find . -mindepth 1 -delete"
+        dir('image') {
+          checkout scm
+        }
         dir('tools') {
           checkout([
             $class: 'GitSCM',
@@ -36,9 +40,6 @@ pipeline {
             branches: [[name: 'jrmtb/rewrite']],
             userRemoteConfigs: [[url: "https://github.com/scaleway/image-tools.git"]]
           ])
-        }
-        dir('image') {
-          checkout scm
         }
       }
     }
