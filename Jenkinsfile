@@ -15,7 +15,7 @@ pipeline {
   }
 
   environment {
-    SSH_KEY_FILE = "${env.HOME}/.ssh/id_worker.pub"
+    SSH_KEY_FILE = "${env.HOME}/.ssh/id_worker"
     IMAGE_DIR_BASE = "${env.WORKSPACE}/image"
     EXPORT_DIR_BASE = "${env.WORKSPACE}/export"
   }
@@ -102,7 +102,7 @@ pipeline {
         dir('tools') {
           script {
             for (Map image : images) {
-              sh "make tests IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/${image['arch']} ARCH=${image['arch']} IMAGE_ID=${image['id']} NO_CLEANUP=${params.needAdminApproval}"
+              sh "make tests IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/${image['arch']} ARCH=${image['arch']} IMAGE_ID=${image['id']} TESTS_DIR=${env.IMAGE_DIR}/tests NO_CLEANUP=${params.needAdminApproval}"
             }
             if (env.needsAdminApproval) {
               input "Confirm that the images are stable ?"

@@ -1,0 +1,5 @@
+ssh: 22
+file:
+  - path: /usr/local/bin/scw-metadata
+    owner: root:root
+    perm: 0775
