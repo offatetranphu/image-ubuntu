@@ -21,6 +21,7 @@ pipeline {
   }
 
   parameters {
+    booleanParam(name: 'useCache', defaultValue: false, description: 'Don\'t force building a fresh image')
     booleanParam(name: 'noTest', defaultValue: false, description: 'Don\'t test the image')
     booleanParam(name: 'needAdminApproval', defaultValue: false, description: 'Wait for admin approval after testing')
     booleanParam(name: 'noRelease', defaultValue: false, description: 'Don\'t release the image')
@@ -51,6 +52,11 @@ pipeline {
             returnStdout: true
           ).trim()
           env.IMAGE_DIR = "${env.IMAGE_DIR_BASE}/${subdir}"
+          if (params.useCache) {
+            env.BUILD_OPTS = ""
+          } else {
+            env.BUILD_OPTS = "--no-cache"
+          }
         }
       }
     }
@@ -64,7 +70,7 @@ pipeline {
     stage('Create image on Scaleway: x86_64') {
       steps {
         dir('tools') {
-          sh "make ARCH=x86_64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/x86_64 BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=x86_64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/x86_64 BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/x86_64/image.id").trim()
             images.add([arch: "x86_64", id: imageId])
@@ -75,7 +81,7 @@ pipeline {
     stage('Create image on Scaleway: arm64') {
       steps {
         dir('tools') {
-          sh "make ARCH=arm64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm64 BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=arm64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm64 BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/arm64/image.id").trim()
             images.add([arch: "arm64", id: imageId])
@@ -86,7 +92,7 @@ pipeline {
     stage('Create image on Scaleway: arm') {
       steps {
         dir('tools') {
-          sh "make ARCH=arm IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm BUILD_OPTS='--no-cache' scaleway_image"
+          sh "make ARCH=arm IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
           script {
             imageId = readFile("${env.EXPORT_DIR_BASE}/arm/image.id").trim()
             images.add([arch: "arm", id: imageId])
