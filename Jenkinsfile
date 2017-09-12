@@ -53,6 +53,10 @@ pipeline {
             returnStdout: true
           ).trim()
           env.IMAGE_DIR = "${env.IMAGE_DIR_BASE}/${subdir}"
+          env.MARKETPLACE_IMAGE_NAME = sh(
+            script: "grep 'IMAGE_TITLE' ${env.IMAGE_DIR}/env.mk | cut -d'=' -f2",
+            returnStdout: true
+          ).trim()
           if (params.useCache) {
             env.BUILD_OPTS = ""
           } else {
@@ -139,20 +143,18 @@ pipeline {
       steps {
         script {
           marketplace_id = sh(
-            script: "curl https://api-marketplace.scaleway.com/images | jq -r '.images[] | select(.name | contains(\"Ubuntu Xenial\")) | .id'",
+            script: "curl --fail -s https://api-marketplace.scaleway.com/images | jq -r '.images[] | select(.name | contains(\"${env.MARKETPLACE_IMAGE_NAME}\")) | .id'",
             returnStdout: true
           ).trim()
-          message = [
-            type: image,
+          message = groovy.json.JsonOutput.toJson([
+            type: "image",
             data: [
               marketplace_id: marketplace_id,
               versions: images
             ]
-          ]
-          writeJSON(file: 'release.json', json: message)
-          json_string = readFile(file: 'release.json')
+          ])
           versionId = input(
-            message: "${json_string}",
+            message: "${message}",
             parameters: [string(name: 'version_id', description: 'ID of the new image version')]
           )
         }
