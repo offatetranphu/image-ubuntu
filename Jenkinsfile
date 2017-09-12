@@ -25,6 +25,7 @@ pipeline {
     booleanParam(name: 'noTest', defaultValue: false, description: 'Don\'t test the image')
     booleanParam(name: 'needAdminApproval', defaultValue: false, description: 'Wait for admin approval after testing')
     booleanParam(name: 'noRelease', defaultValue: false, description: 'Don\'t release the image')
+    string(name: 'logLevel', defaultValue: '3', description: 'Log level')
   }
 
   stages {
@@ -57,6 +58,7 @@ pipeline {
           } else {
             env.BUILD_OPTS = "--no-cache"
           }
+          env.LOG_LEVEL = params.logLevel
         }
       }
     }
