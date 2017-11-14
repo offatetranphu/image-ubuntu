@@ -1,6 +1,0 @@
-deb http://mirror.scaleway.com/ubuntu-ports precise main restricted universe multiverse
-deb http://ports.ubuntu.com/ubuntu-ports precise main universe
-deb-src http://ports.ubuntu.com/ubuntu-ports precise main restricted universe multiverse
-
-deb http://ports.ubuntu.com precise-updates main restricted universe multiverse
-deb http://ports.ubuntu.com precise-security main restricted universe multiverse
