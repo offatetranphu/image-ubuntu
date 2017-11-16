@@ -1,0 +1,9 @@
+{
+    "image-ubuntu-xenial": {
+        "directory": "16.04",
+        "architectures": [
+            "arm", "arm64", "x86_64"
+        ],
+        "marketplace-id":"acf93867-88d9-40ee-99ea-6b2bb1ee8f0c"
+    }
+}

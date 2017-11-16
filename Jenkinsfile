@@ -1,4 +1,5 @@
 def images = []
+def image_versions = [:]
 
 pipeline {
   agent {
@@ -48,15 +49,10 @@ pipeline {
     stage('Set environment') {
       steps {
         script {
-          subdir = sh(
-            script: "grep '${env.JOB_NAME}' ${env.IMAGE_DIR_BASE}/images.list | cut -d'|' -f2",
-            returnStdout: true
-          ).trim()
-          env.IMAGE_DIR = "${env.IMAGE_DIR_BASE}/${subdir}"
-          env.MARKETPLACE_IMAGE_NAME = sh(
-            script: "grep 'IMAGE_TITLE' ${env.IMAGE_DIR}/env.mk | cut -d'=' -f2",
-            returnStdout: true
-          ).trim()
+          image_versions_file = readFile("${env.IMAGE_DIR_BASE}/image_versions.json")
+          image_versions = new groovy.json.JsonSlurperClassic().parseText(image_versions_file)
+          env.IMAGE_DIR = env.IMAGE_DIR_BASE + '/' + image_versions[env.JOB_NAME]['directory']
+          env.MARKETPLACE_IMAGE_NAME = image_versions[env.JOB_NAME]['marketplace-name']
           if (params.useCache) {
             env.BUILD_OPTS = ""
           } else {
@@ -73,35 +69,18 @@ pipeline {
         }
       }
     }
-    stage('Create image on Scaleway: x86_64') {
+    stage("Create image on Scaleway") {
       steps {
-        dir('tools') {
-          sh "make ARCH=x86_64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/x86_64 BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
-          script {
-            imageId = readFile("${env.EXPORT_DIR_BASE}/x86_64/image.id").trim()
-            images.add([arch: "x86_64", id: imageId])
-          }
-        }
-      }
-    }
-    stage('Create image on Scaleway: arm64') {
-      steps {
-        dir('tools') {
-          sh "make ARCH=arm64 IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm64 BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
-          script {
-            imageId = readFile("${env.EXPORT_DIR_BASE}/arm64/image.id").trim()
-            images.add([arch: "arm64", id: imageId])
-          }
-        }
-      }
-    }
-    stage('Create image on Scaleway: arm') {
-      steps {
-        dir('tools') {
-          sh "make ARCH=arm IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/arm BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
-          script {
-            imageId = readFile("${env.EXPORT_DIR_BASE}/arm/image.id").trim()
-            images.add([arch: "arm", id: imageId])
+        script {
+          for (String arch in image_versions[env.JOB_NAME]['architectures']) {
+            echo "Creating image for $arch"
+            dir('tools') {
+              sh "make ARCH=$arch IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/$arch BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
+              script {
+                imageId = readFile("${env.EXPORT_DIR_BASE}/$arch/image.id").trim()
+                images.add([arch: arch, id: imageId])
+              }
+            }
           }
         }
       }
@@ -142,14 +121,10 @@ pipeline {
       }
       steps {
         script {
-          marketplace_id = sh(
-            script: "curl --fail -s https://api-marketplace.scaleway.com/images | jq -r '.images[] | select(.name | contains(\"${env.MARKETPLACE_IMAGE_NAME}\")) | .id'",
-            returnStdout: true
-          ).trim()
           message = groovy.json.JsonOutput.toJson([
             type: "image",
             data: [
-              marketplace_id: marketplace_id,
+              marketplace_id: image_versions[env.JOB_NAME]['marketplace-id'],
               versions: images
             ]
           ])
