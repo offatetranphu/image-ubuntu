@@ -1,2 +1,0 @@
-IMAGE_FLAVORS="common docker-based feature-motd systemd"
-IMAGE_TOOLS_CHECKOUT="master"

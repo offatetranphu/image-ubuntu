@@ -22,7 +22,7 @@ COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
-COPY ./overlay-image-tools/usr/local/sbin/scw-builder-enter /usr/local/sbin/
+COPY ./overlay-base/usr/local/sbin/scw-builder-enter /usr/local/sbin/
 RUN /usr/local/sbin/scw-builder-enter
 
 
@@ -92,7 +92,7 @@ RUN apt-get -q update && \
 # Patch rootfs
 # - Tweaks rootfs so it matches Scaleway infrastructure
 RUN rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/00-header
-COPY ./overlay/ ./overlay-image-tools/ ./overlay-${ARCH}/ /
+COPY ./overlay-base/ ./overlay/ ./overlay-${ARCH}/ /
 
 
 # remove root password, it will be created by the initrd
