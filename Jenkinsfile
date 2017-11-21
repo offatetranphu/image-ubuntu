@@ -78,7 +78,12 @@ pipeline {
               sh "make ARCH=$arch IMAGE_DIR=${env.IMAGE_DIR} EXPORT_DIR=${env.EXPORT_DIR_BASE}/$arch BUILD_OPTS='${env.BUILD_OPTS}' scaleway_image"
               script {
                 imageId = readFile("${env.EXPORT_DIR_BASE}/$arch/image.id").trim()
-                images.add([arch: arch, id: imageId])
+                docker_tags = readFile("${env.EXPORT_DIR_BASE}/$arch/docker_tags").trim().split('\n')
+                images.add([
+                  arch: arch,
+                  id: imageId,
+                  docker_tags: docker_tags
+                ])
               }
             }
           }
@@ -121,6 +126,10 @@ pipeline {
       }
       steps {
         script {
+          for (Map image : images) {
+            docker_tags = image['docker_tags'].join(' ')
+            sh "docker push ${docker_tags}"
+          }
           message = groovy.json.JsonOutput.toJson([
             type: "image",
             data: [
