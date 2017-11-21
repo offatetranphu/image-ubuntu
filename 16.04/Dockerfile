@@ -68,12 +68,14 @@ RUN apt-get -q update && \
 	ntp \
 	ntpdate \
 	python-apt \
+	python-software-properties \
 	python-yaml \
 	rsync \
 	rsyslog \
 	screen \
 	shunit2 \
 	socat \
+	software-properties-common \
 	ssh \
 	sudo \
 	sysstat \

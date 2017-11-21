@@ -5,5 +5,5 @@ IMAGE_TITLE = Ubuntu Zesty
 IMAGE_DESCRIPTION = Ubuntu Zesty (17.04)
 IMAGE_SOURCE_URL = https://github.com/scaleway/image-ubuntu
 IMAGE_VENDOR_URL = http://www.ubuntu.com
-IMAGE_BOOTSCRIPT = mainline 4.9 
+IMAGE_BOOTSCRIPT = mainline 4.9
 IMAGE_BASE_FLAVORS = common docker-based systemd feature-motd

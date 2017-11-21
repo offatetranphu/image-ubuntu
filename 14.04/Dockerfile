@@ -1,19 +1,13 @@
 ## -*- docker-image-name: "scaleway/ubuntu:trusty" -*-
-FROM multiarch/ubuntu-debootstrap:amd64-trusty
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/ubuntu-debootstrap:armhf-trusty	# arch=armv7l
-#FROM multiarch/ubuntu-debootstrap:i386-trusty	# arch=i386
-#FROM multiarch/ubuntu-debootstrap:amd64-trusty	# arch=x86_64
-#FROM multiarch/ubuntu-debootstrap:mips-trusty	# arch=mips
+ARG ARCH
+FROM multiarch/ubuntu-debootstrap:${ARCH}-trusty
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV DEBIAN_FRONTEND=noninteractive \
-    SCW_BASE_IMAGE=scaleway/ubuntu:trusty
+ENV DEBIAN_FRONTEND=noninteractive
 
 
 # Configure aptitude
@@ -68,6 +62,7 @@ RUN apt-get -q update && \
 	ntp \
 	ntpdate \
 	python-apt \
+	python-software-properties \
 	python-yaml \
 	rsync \
 	rsyslog \

@@ -1,19 +1,13 @@
 ## -*- docker-image-name: "scaleway/ubuntu:zesty" -*-
-FROM multiarch/ubuntu-debootstrap:amd64-zesty
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/ubuntu-debootstrap:armhf-zesty	# arch=armv7l
-#FROM multiarch/ubuntu-debootstrap:arm64-zesty	# arch=arm64
-#FROM multiarch/ubuntu-debootstrap:i386-zesty	# arch=i386
-#FROM multiarch/ubuntu-debootstrap:mips-zesty	# arch=mips
+ARG ARCH
+FROM multiarch/ubuntu-debootstrap:${ARCH}-zesty
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV DEBIAN_FRONTEND=noninteractive \
-    SCW_BASE_IMAGE=scaleway/ubuntu:zesty
+ENV DEBIAN_FRONTEND=noninteractive
 
 
 # Configure aptitude
@@ -70,12 +64,14 @@ RUN apt-get -q update && \
 	ntp \
 	ntpdate \
 	python-apt \
+	python-software-properties \
 	python-yaml \
 	rsync \
 	rsyslog \
 	screen \
 	shunit2 \
 	socat \
+	software-properties-common \
 	ssh \
 	sudo \
 	sysstat \
