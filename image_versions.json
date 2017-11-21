@@ -1,9 +1,23 @@
 {
-    "image-ubuntu-xenial": {
+    "trusty": {
+        "directory": "14.04",
+        "architectures": [
+            "arm", "x86_64"
+        ],
+        "marketplace-id": "c2292eda-bb2a-4399-a226-91f82525b75f"
+    },
+    "xenial": {
         "directory": "16.04",
         "architectures": [
             "arm", "arm64", "x86_64"
         ],
-        "marketplace-id":"acf93867-88d9-40ee-99ea-6b2bb1ee8f0c"
+        "marketplace-id": "acf93867-88d9-40ee-99ea-6b2bb1ee8f0c"
+    },
+    "zesty": {
+        "directory": "17.04",
+        "architectures": [
+            "arm", "arm64", "x86_64"
+        ],
+        "marketplace-id": "75fbea67-465c-490d-9097-200bb755de07"
     }
 }
